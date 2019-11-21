@@ -34,7 +34,7 @@ pub fn do_lehmer64() {
     }
 
     print!(
-        "Lehmer64 {:10.2} | ",
+        "Leh64 {:10.2} | ",
         (times.iter().sum::<u64>() as f64) / (times.len() as f64)
     );
 }
@@ -92,7 +92,7 @@ pub fn do_xorshift() {
     }
 
     print!(
-        "Xorshift {:10.2} | ",
+        "Xshft {:10.2} | ",
         (times.iter().sum::<u64>() as f64) / (times.len() as f64)
     );
 }
@@ -153,7 +153,7 @@ pub fn do_xoshiro128plus() {
     }
 
     print!(
-        "Xoshiro128Plus {:10.2} | ",
+        "X128+ {:10.2} | ",
         (times.iter().sum::<u64>() as f64) / (times.len() as f64)
     );
 }
@@ -204,7 +204,7 @@ pub fn do_xoshiro256starstar() {
     }
 
     print!(
-        "Xoshiro256StarStar {:10.2} | ",
+        "X256** {:10.2} | ",
         (times.iter().sum::<u64>() as f64) / (times.len() as f64)
     );
 }
@@ -259,7 +259,7 @@ pub fn do_xorshift_mod() {
     }
 
     print!(
-        "Xorshift_mod {:10.2} | ",
+        "xshft_mod {:10.2} | ",
         (times.iter().sum::<u64>() as f64) / (times.len() as f64)
     );
 }
