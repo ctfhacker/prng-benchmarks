@@ -209,12 +209,68 @@ pub fn do_xoshiro256starstar() {
     );
 }
 
+/// Random number generator implementation using xorshift_mod64
+pub struct Xorshift_mod {
+    /// Interal xorshift_mod seed
+    val0: u64,
+    val1: u64,
+    val2: u64,
+    val3: u64,
+}
+
+impl Xorshift_mod {
+    /// Create a new, TSC-seeded random number generator
+    pub fn new() -> Self {
+        let mut ret = Xorshift_mod {
+            val0: 0xabcd,
+            val1: 0,
+            val2: 0,
+            val3: 0,
+        };
+
+        for i in 0..100 {
+            let _ = ret.rand();
+        }
+
+        ret
+    }
+
+    /// Get a random 64-bit number using xorshift_mod
+    pub fn rand(&mut self) -> u64 {
+        self.val1 = self.val0 << 13;
+        self.val2 = self.val1 >> 17;
+        self.val3 = self.val2 << 43;
+        self.val3
+    }
+}
+
+pub fn do_xorshift_mod() {
+    let mut rng = Xorshift_mod::new();
+    for _ in 0..10 {
+        rng.rand();
+    }
+
+    let mut times: Vec<u64> = Vec::new();
+    for _ in 0..0xff_ffff {
+        let start = unsafe { core::arch::x86_64::_rdtsc() };
+        rng.rand();
+        let end = unsafe { core::arch::x86_64::_rdtsc() };
+        times.push(end - start);
+    }
+
+    print!(
+        "Xorshift_mod {:10.2} | ",
+        (times.iter().sum::<u64>() as f64) / (times.len() as f64)
+    );
+}
+
 pub fn main() {
     print!("Clock cycles per .rand() on average over 0xff_fffff iterations\n");
     loop {
         do_xoshiro256starstar();
         do_xoshiro128plus();
         do_xorshift();
+        do_xorshift_mod();
         do_lehmer64();
         print!("\n");
     }
