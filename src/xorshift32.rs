@@ -10,11 +10,11 @@ pub struct Xorshift32 {
 impl Xorshift32 {
     /// Create a new, TSC-seeded random number generator
     pub fn new() -> Self {
-        let mut ret = Xorshift32 {
+        let ret = Xorshift32 {
             x: 123456789,
             y: 362436069,
             z: 521288629,
-            w: 88675123
+            w: 88675123,
         };
 
         ret
@@ -30,4 +30,3 @@ impl Xorshift32 {
         self.w
     }
 }
-

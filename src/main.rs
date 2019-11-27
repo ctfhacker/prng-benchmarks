@@ -21,6 +21,9 @@ pub use xoshiro256starstar::*;
 mod xorshift32;
 pub use xorshift32::*;
 
+mod shasha;
+pub use shasha::*;
+
 macro_rules! benchmark {
     ($name:ident) => {
         let mut rng = $name::new();
@@ -36,10 +39,12 @@ macro_rules! benchmark {
         }
 
         print!(
-            "{:20} {:10.2} | {:#x}\n", stringify!($name), times as f64 / counter as f64, 
+            "{:20} {:10.2} | {:#x}\n",
+            stringify!($name),
+            times as f64 / counter as f64,
             result
         );
-    }
+    };
 }
 
 pub fn main() {
@@ -51,4 +56,5 @@ pub fn main() {
     benchmark!(Xoshiro256StarStar);
     benchmark!(Xoshiro128Plus);
     benchmark!(Lehmer64);
+    benchmark!(ShaSha);
 }

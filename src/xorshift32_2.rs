@@ -4,10 +4,8 @@ pub struct Xorshift32_2 {
 
 impl Xorshift32_2 {
     /// Create a new, TSC-seeded random number generator
-    pub fn new() -> Self {
-        Xorshift32_2 {
-            val0: 0xdeadbeef,
-        }
+    pub fn new(seed: u32) -> Self {
+        Xorshift32_2 { val0: seed }
     }
 
     /*
@@ -20,9 +18,9 @@ impl Xorshift32_2 {
     */
 
     pub fn rand(&mut self) -> u32 {
-        self.val0 ^= (self.val0<<13); 
-        self.val0 =  (self.val0>>17); 
-        self.val0 ^= (self.val0<<5);
+        self.val0 ^= (self.val0 << 13);
+        self.val0 = (self.val0 >> 17);
+        self.val0 ^= (self.val0 << 5);
         return self.val0;
     }
 }

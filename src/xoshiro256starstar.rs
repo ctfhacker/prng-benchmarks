@@ -1,4 +1,3 @@
-#[inline]
 fn rotl64(x: u64, k: u64) -> u64 {
     (x << k) | (x >> (64 - k))
 }
